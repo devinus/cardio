@@ -6,8 +6,10 @@ from Cython.Build import cythonize
 extensions = [
     Extension("cardio", ["cardio.pyx"],
         language="c++",
+        include_dirs = ['card.io-dmz'],
         library_dirs = ['.'],
-        libraries = ['dmz']
+        libraries = ['dmz'],
+        define_macros = [('CYTHON_DMZ', 1), ('SCAN_EXPIRY', 1)]
     )
 ]
 

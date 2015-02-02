@@ -24,3 +24,15 @@ cdef extern from "card.io-dmz/dmz.h":
     void dmz_prepare_for_backgrounding(dmz_context *dmz)
 
     int dmz_has_opencv()
+
+cdef extern from "card.io-dmz/scan/scan.h":
+    ctypedef struct ScannerResult:
+        pass
+
+    ctypedef struct ScannerState:
+        pass
+
+    void scanner_initialize(ScannerState *state)
+    void scanner_reset(ScannerState *state)
+    void scanner_result(ScannerState *state, ScannerResult *result)
+    void scanner_destroy(ScannerState *state)
