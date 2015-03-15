@@ -3,8 +3,11 @@ from libcpp cimport bool
 cdef extern from "dmz/dmz.h":
     cdef int IPL_DEPTH_8U
 
-    cdef enum FrameOrientation:
-        pass
+    ctypedef enum FrameOrientation:
+        FrameOrientationPortrait = 1
+        FrameOrientationPortraitUpsideDown = 2
+        FrameOrientationLandscapeRight = 3
+        FrameOrientationLandscapeLeft = 4
 
     ctypedef struct CvSize:
         int width
