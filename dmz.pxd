@@ -1,3 +1,4 @@
+from libc.stdint cimport uint8_t
 from libcpp cimport bool
 
 cdef extern from "dmz/dmz.h":
@@ -78,6 +79,7 @@ cdef extern from "dmz/scan/scan.h":
         bool complete
         int expiry_month
         int expiry_year
+        uint8_t n_numbers
 
     ctypedef struct ScannerState:
         pass
