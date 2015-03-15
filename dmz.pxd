@@ -46,6 +46,7 @@ cdef extern from "dmz/dmz.h":
     CvSize cvSize(int width, int height)
     IplImage *cvCreateImageHeader(CvSize size, int depth, int channels)
     void cvReleaseImageHeader(IplImage** image)
+    void cvReleaseImage(IplImage** image)
 
     dmz_context *dmz_context_create()
     void dmz_context_destroy(dmz_context *dmz)
