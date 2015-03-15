@@ -9,7 +9,7 @@ extensions = [
         include_dirs = ['dmz'],
         library_dirs = ['.'],
         libraries = ['dmz'],
-        define_macros = [('CYTHON_DMZ', 1), ('SCAN_EXPIRY', 1)],
+        define_macros = [('CYTHON_DMZ', 1), ('SCAN_EXPIRY', 1), ('DEBUG_EXPIRY_CATEGORIZATION_RESULTS', 1)],
         extra_compile_args = [
             '-Wno-unused-function',
             '-Wno-unneeded-internal-declaration'

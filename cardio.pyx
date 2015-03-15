@@ -89,4 +89,7 @@ def process():
     print "Expiry month:", scan_result.expiry_month
     print "Expiry year:", scan_result.expiry_year
 
+    numbers = [scan_result.predictions(x) for x in xrange(scan_result.n_numbers)]
+    print numbers
+
     # dmz.dmz_context_destroy(context)

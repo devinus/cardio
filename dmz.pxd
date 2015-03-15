@@ -75,11 +75,14 @@ cdef extern from "dmz/scan/frame.h":
         NVerticalSegmentation vseg
 
 cdef extern from "dmz/scan/scan.h":
+    ctypedef int NumberPredictions (int)
+
     ctypedef struct ScannerResult:
         bool complete
         int expiry_month
         int expiry_year
         uint8_t n_numbers
+        NumberPredictions predictions
 
     ctypedef struct ScannerState:
         pass
