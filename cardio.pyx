@@ -76,6 +76,8 @@ def process():
     cdef ScannerState scanner_state
     dmz.scanner_initialize(&scanner_state)
     dmz.scanner_add_frame_with_expiry(&scanner_state, card_y, True, &result)
+    dmz.scanner_add_frame_with_expiry(&scanner_state, card_y, True, &result)
+    dmz.scanner_add_frame_with_expiry(&scanner_state, card_y, True, &result)
     # cvReleaseImage(&card_y)
     print "Usable:", result.usable
     print "Upside down:", result.upside_down
