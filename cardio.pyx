@@ -41,22 +41,28 @@ def process():
     print "Image size:", (width, height)
 
     cdef IplImage* y = cvCreateImageHeader(cvSize(width, height), IPL_DEPTH_8U, 1)
-    cdef IplImage* cbcr = cvCreateImageHeader(cvSize(width / 2, height / 2), IPL_DEPTH_8U, 2)
-    cdef IplImage* cb
-    cdef IplImage* cr
+    cdef IplImage* cb = cvCreateImageHeader(cvSize(width / 2, height / 2), IPL_DEPTH_8U, 1)
+    cdef IplImage* cr = cvCreateImageHeader(cvSize(width / 2, height / 2), IPL_DEPTH_8U, 1)
 
-    y_data = image.tobytes()
+    y_image, cb_image, cr_image = image.split()
+
+    y_data = y_image.tobytes()
     y.imageData = y_data
+
+    cb_data = cb_image.tobytes()
+    cb.imageData = cb_data
+    cr_data = cr_image.tobytes()
+    cr.imageData = cr_data
 
     cdef float focus_score = dmz.dmz_focus_score(y, False)
     print "Focus score:", focus_score
 
-    cbcr.imageData = y.imageData + <int> width * <int> height
-    dmz.dmz_deinterleave_uint8_c2(cbcr, &cr, &cb)
+    # cbcr.imageData = y.imageData + <int> width * <int> height
+    # dmz.dmz_deinterleave_uint8_c2(cbcr, &cr, &cb)
 
     # Image.frombytes('YCbCr', (width / 2, height / 2), cb.imageData).convert('RGB').save('tmp.jpg')
 
-    cvReleaseImageHeader(&cbcr)
+    # cvReleaseImageHeader(&cbcr)
 
     cdef dmz_edges found_edges
     cdef dmz_corner_points corner_points
