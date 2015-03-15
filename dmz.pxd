@@ -54,19 +54,31 @@ cdef extern from "dmz/dmz.h":
     int dmz_has_opencv()
     float dmz_focus_score(IplImage *image, bool use_full_image)
     void dmz_deinterleave_uint8_c2(IplImage *interleaved, IplImage **channel1, IplImage **channel2)
+    bool dmz_found_all_edges(dmz_edges found_edges)
     bool dmz_detect_edges(IplImage *y_sample, IplImage *cb_sample, IplImage *cr_sample,
                           FrameOrientation orientation, dmz_edges *found_edges, dmz_corner_points *corner_points)
     void dmz_transform_card(dmz_context *dmz, IplImage *sample, dmz_corner_points corner_points,
                             FrameOrientation orientation, bool upsample, IplImage **transformed)
 
+cdef extern from "scan/n_vseg.h":
+    ctypedef struct NVerticalSegmentation:
+        float score
+
+cdef extern from "dmz/scan/frame.h":
+    ctypedef struct FrameScanResult:
+        bool usable
+        bool flipped
+        bool upside_down
+        float focus_score
+        NVerticalSegmentation vseg
+
 cdef extern from "dmz/scan/scan.h":
     ctypedef struct ScannerResult:
-        pass
+        bool complete
+        int expiry_month
+        int expiry_year
 
     ctypedef struct ScannerState:
-        pass
-
-    ctypedef struct FrameScanResult:
         pass
 
     void scanner_initialize(ScannerState *state)
