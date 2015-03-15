@@ -51,16 +51,16 @@ def process():
     cdef float focus_score = dmz.dmz_focus_score(y, False)
     print "Focus score:", focus_score
 
-    cbcr.imageData = <char*> y_data + <int> width * <int> height
+    cbcr.imageData = y.imageData + <int> width * <int> height
     dmz.dmz_deinterleave_uint8_c2(cbcr, &cr, &cb)
 
-    # Image.frombytes('YCbCr', (width / 2, height / 2), cbcr.imageData).convert('RGB').save('tmp.jpg')
+    # Image.frombytes('YCbCr', (width / 2, height / 2), cb.imageData).convert('RGB').save('tmp.jpg')
 
     cvReleaseImageHeader(&cbcr)
 
     cdef dmz_edges found_edges
     cdef dmz_corner_points corner_points
-    cdef FrameOrientation orientation = FrameOrientationLandscapeRight
+    cdef FrameOrientation orientation = FrameOrientationLandscapeLeft
     cdef bool card_detected = dmz_detect_edges(y, cb, cr, orientation, &found_edges, &corner_points)
     cvReleaseImage(&cb)
     cvReleaseImage(&cr)
