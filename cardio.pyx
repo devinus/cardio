@@ -33,7 +33,7 @@ def process():
     if dmz.dmz_has_opencv() != 1:
         raise RequirementMissing("OpenCV not found")
 
-    image = Image.open('creditcard.bmp').convert('YCbCr')
+    image = Image.open('images/006.png').convert('YCbCr')
     width, height = image.size
     print "Image size:", (width, height)
 
@@ -78,6 +78,7 @@ def process():
     dmz.scanner_add_frame_with_expiry(&scanner_state, card_y, True, &result)
     dmz.scanner_add_frame_with_expiry(&scanner_state, card_y, True, &result)
     dmz.scanner_add_frame_with_expiry(&scanner_state, card_y, True, &result)
+
     # cvReleaseImage(&card_y)
     print "Usable:", result.usable
     print "Upside down:", result.upside_down
